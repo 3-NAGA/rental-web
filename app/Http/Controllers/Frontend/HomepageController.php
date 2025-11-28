@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Frontend;
-
+use App\Models\Setting;
 use App\Models\Car;
 use App\Models\Type;
 use App\Models\Testimonial;
@@ -12,11 +12,11 @@ class HomepageController extends Controller
 {
     public function index(Request $request)
     {
-   
+        $setting = Setting::first();
         $cars = Car::where('status',1)->get();
         $testimonials = Testimonial::get();
         $types = Type::get(['id','nama']);
-
-        return view('frontend.homepage', compact('cars','testimonials','types'));
+        // return $cars;
+        return view('frontend.homepage', compact('cars','testimonials','types','setting'));
     }
 }

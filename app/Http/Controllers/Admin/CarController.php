@@ -38,6 +38,8 @@ class CarController extends Controller
      */
     public function store(CarRequest $request)
     {
+
+        // return $request->all();
         if($request->validated()) {
             $image = $request->file('image')->store(
                 'cars/images', 'public'

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Frontend\CarController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,18 +10,34 @@ use Illuminate\Support\Facades\Route;
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
-|
-*/
 
-Route::get('/', [\App\http\Controllers\Frontend\HomepageController::class,'index'])->name('homepage');
-Route::get('daftar-mobil', [\App\http\Controllers\Frontend\CarController::class,'index'])->name('car.index');
-Route::get('daftar-mobil/{car}', [\App\http\Controllers\Frontend\CarController::class,'show'])->name('car.show');
-Route::post('daftar-mobil', [\App\http\Controllers\Frontend\CarController::class,'store'])->name('car.store');
-Route::get('blog', [\App\http\Controllers\Frontend\BlogController::class,'index'])->name('blog.index');
-Route::get('blog/{blog:slug}', [\App\http\Controllers\Frontend\BlogController::class,'show'])->name('blog.show');
-Route::get('tentang-kami',[\App\http\Controllers\Frontend\AboutController::class,'index']);
-Route::get('kontak', [\App\http\Controllers\Frontend\ContactController::class,'index']);
-Route::post('kontak', [\App\http\Controllers\Frontend\ContactController::class,'store'])->name('contact.store');
+
+|
+*/Route::get('/invoice', [CarController::class, 'invoice']);
+
+Route::get('/test-google-json', function () {
+    $path = storage_path('app/google/abcdConsole.json');
+
+    if (file_exists($path)) {
+        return "FILE FOUND: " . $path;
+    }
+
+    return "FILE NOT FOUND: " . $path;
+});
+
+// Route::post('/scan-ktp', [\App\Http\Controllers\KtpOcrController::class, 'scan']);
+
+Route::get('/', [\App\Http\Controllers\Frontend\HomepageController::class,'index'])->name('homepage');
+Route::get('daftar-mobil', [\App\Http\Controllers\Frontend\CarController::class,'index'])->name('car.index');
+Route::get('daftar-mobil/{car}', [\App\Http\Controllers\Frontend\CarController::class,'show'])->name('car.show');
+Route::post('daftar-mobil', [\App\Http\Controllers\Frontend\CarController::class,'store'])->name('car.store');
+Route::get('blog', [\App\Http\Controllers\Frontend\BlogController::class,'index'])->name('blog.index');
+Route::get('blog/{blog:slug}', [\App\Http\Controllers\Frontend\BlogController::class,'show'])->name('blog.show');
+Route::get('tentang-kami',[\App\Http\Controllers\Frontend\AboutController::class,'index']);
+Route::get('kontak', [\App\Http\Controllers\Frontend\ContactController::class,'index']);
+Route::post('kontak', [\App\Http\Controllers\Frontend\ContactController::class,'store'])->name('contact.store');
+
+
 
 Auth::routes();
 
